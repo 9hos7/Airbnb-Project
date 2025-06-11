@@ -23,4 +23,5 @@ class House(BaseDataHandler):
         super().create()
     
     def update(self):
+        super().update()
         pass
