@@ -1,29 +1,28 @@
 from storage import Storage
 from functions import AirbnbApp
+import os
+import json
 
 def ensure_storage_file():
     """Create the storage JSON file if it doesn't exist."""
-    import os, json
     if not os.path.exists(Storage.FILE):
         with open(Storage.FILE, "w") as f:
             json.dump({"users": {}, "house": {}}, f, indent=4)
 
 def main():
     ensure_storage_file()
-
-    print("Welcome to the Airbnb Terminal!")
+    print("Welcome to the Airbnb Terminal!\n")
     app = AirbnbApp()
 
-    while True:
+    # Force login or registration before anything else
+    while not getattr(app, 'current_user', None):
         auth = input("Do you want to [register], [login], or [quit]? ").strip().lower()
 
         if auth == "register":
             app.do_register()
             app.do_login()
-            break
         elif auth == "login":
             app.do_login()
-            break
         elif auth == "quit":
             print("Goodbye!")
             return
@@ -32,7 +31,10 @@ def main():
 
     # Main command loop
     while True:
-        command = input("\nWhat would you like to do? [add house / edit house / view houses / delete house / search / logout]: ").strip().lower()
+        command = input(
+            "\nWhat would you like to do?\n"
+            "[add house / edit house / delete house / search / view my houses / logout]: "
+        ).strip().lower()
 
         if command == "add house":
             app.do_add_house()
@@ -40,10 +42,10 @@ def main():
             app.do_edit_house()
         elif command == "delete house":
             app.do_delete_house()
-        elif command == "view houses":
-            app.do_view_my_houses()
         elif command == "search":
             app.do_search()
+        elif command == "view my houses":
+            app.do_view_my_houses()
         elif command == "logout":
             print("Logging out. Goodbye!")
             break

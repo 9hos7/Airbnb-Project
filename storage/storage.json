@@ -7,14 +7,5 @@
             "role": "owner"
         }
     },
-    "house": {
-        "3053171e-80a3-495e-8457-8408d06fcf92": {
-            "id": "3053171e-80a3-495e-8457-8408d06fcf92",
-            "owner_id": "d5083de9-833f-4409-ba34-aa7c3c5e747d",
-            "name": "renny",
-            "location": "abuja",
-            "rooms": "4",
-            "price": 120.0
-        }
-    }
+    "house": {}
 }

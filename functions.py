@@ -33,19 +33,19 @@ class AirbnbApp(cmd.Cmd):
         print("Registration Successful!")
 
     def do_login(self, arg=None):
-        """Log in a user"""
         username = input("Username: ")
         password = input("Password: ")
-
         data = Storage.load()
         users = data.get("users", {})
 
-        user = users.get(username)
-        if user and user["password"] == password:
-            self.current_user = user
-            print(f"Logged in as {username}")
-        else:
-            print("Invalid credentials.")
+        for user_id, user in users.items():
+            if user["username"] == username and user["password"] == password:
+                self.current_user = user
+                print(f"Logged in as {username}")
+                return  # ✅ exit once logged in
+
+        print("Invalid credentials. Please try again.")
+
     
     def do_add_house(self, arg=None):
         """Add a house (owners only)"""
